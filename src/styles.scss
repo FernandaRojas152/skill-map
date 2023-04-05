@@ -1,1 +1,69 @@
-/* You can add global styles to this file, and also import other style files */
+/** imports */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+/** global variables */
+$font-color: #1F2029;
+$font-color-seconday: rgba(31, 32, 41, 0.252);
+$principal-font: 'Poppins', sans-serif;
+$secondary-font: 'Roboto', sans-serif;
+$star: #FFC107;
+$color1: #C6BBE0;
+$color2: #D2D4FF;
+$color3: #FFD2D4;
+$color4: #CBDFE3;
+
+/** mixin functions */
+@mixin flex($justify: flex-start, $align: flex-start, $direction: row, $wrap: wrap) {
+    align-items: $align;
+    display: flex;
+    justify-content: $justify;
+    flex-flow: $direction $wrap;
+}
+
+/** general styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-family: $principal-font;
+    font-size: 96px;
+    font-weight: 500;
+}
+
+h2 {
+    font-family: $secondary-font;
+    font-size: 60px;
+}
+
+h3 {
+    font-family: $principal-font;
+    font-size: 48px;
+}
+
+h4 {
+    font-family: $secondary-font;
+    font-size: 34px;
+}
+
+h5 {
+    font-family: $secondary-font;
+    font-size: 24px;
+}
+
+h6 {
+    font-family: $principal-font;
+    font-size: 20px;
+}
+
+p {
+    font-family: $principal-font;
+    font-size: 16px;
+    font-weight: 400;
+}

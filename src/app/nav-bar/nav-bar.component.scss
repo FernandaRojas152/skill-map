@@ -1,0 +1,17 @@
+@import"../../styles.scss";
+
+.navbar{
+    &__list{
+        @include flex(center, center);
+        list-style: none;
+        gap: 2rem;
+        font-family: $principal-font;
+    }
+    a{
+        color: $font-color;
+        text-decoration: none; 
+    }
+    .active{
+        text-decoration: underline;
+    }
+}
