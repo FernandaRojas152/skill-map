@@ -1,17 +1,36 @@
 @import"../../styles.scss";
 
-.navbar{
-    &__list{
-        @include flex(center, center);
-        list-style: none;
-        gap: 2rem;
-        font-family: $principal-font;
-    }
-    a{
+.navbar {
+    position: relative;
+    padding-top: 2rem;
+    font-family: $principal-font;
+}
+
+.navbar-list {
+    @include flex(center, center);
+    list-style: none;
+    gap: 2rem;
+    
+
+    &__link{
         color: $font-color;
-        text-decoration: none; 
-    }
-    .active{
-        text-decoration: underline;
+        text-decoration: none;
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: $color2;
+            bottom: -14px;
+            transform: scaleX(0);
+            transition: transform .3s;
+        }
+
+        &:hover::after {
+            transform: scaleX(1);
+        }
     }
 }

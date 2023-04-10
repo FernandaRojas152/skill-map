@@ -8,6 +8,7 @@
 /** global variables */
 $font-color: #1F2029;
 $font-color-seconday: rgba(31, 32, 41, 0.252);
+$background-color: #F2EFE7;
 $principal-font: 'Poppins', sans-serif;
 $secondary-font: 'Roboto', sans-serif;
 $star: #FFC107;
@@ -29,6 +30,7 @@ $color4: #CBDFE3;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: $background-color;
 }
 
 h1 {
