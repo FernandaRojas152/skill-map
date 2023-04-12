@@ -16,7 +16,7 @@ export class BarChartComponent {
   private height = 600 - (this.margin * 2);
   private x: any;
   private y: any;
-  private color = d3.scaleOrdinal().domain(this.skills.map(d => d.name)).range(['pink', 'purple', 'blue', 'green']);
+  private color = d3.scaleOrdinal().domain(this.skills.map(d => d.name)).range(['pink', 'purple', 'blue', 'green', 'lightsalmon']);
 
   constructor(private skillsService: SkillService) {
   }
