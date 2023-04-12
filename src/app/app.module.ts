@@ -6,13 +6,15 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { SkillSetComponent } from './skill-set/skill-set.component';
 import { StarRatingModule } from 'angular-star-rating';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { PieChartComponent } from './pie-chart/pie-chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
     SkillSetComponent,
-    BarChartComponent
+    BarChartComponent,
+    PieChartComponent
   ],
   imports: [
     BrowserModule,
