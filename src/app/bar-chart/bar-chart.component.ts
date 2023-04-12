@@ -51,7 +51,7 @@ export class BarChartComponent {
       .attr("y", (d: any) => this.y(d.score))
       .attr("width", this.x.bandwidth())
       .attr("height", (d: any) => this.height - this.y(d.score))
-      .attr("fill", "pink");
+      .attr("fill", (d: any)=> this.color(d.name));
   }
 
   private xAxis(): void {
