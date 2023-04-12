@@ -1,0 +1,25 @@
+@import"../../styles.scss";
+
+.skill-set{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    flex-direction: column;
+    position: relative;
+    background-color: $sidebar;
+    width: 500px;
+    height: 100vh;
+    padding: 1rem;
+    color: white;
+
+    &__title{
+        text-align: center;
+        
+    }
+}
+
+.skill-list{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}

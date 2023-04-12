@@ -1,0 +1,9 @@
+<aside class="skill-set">
+    <img src="../../assets/images/logo.png" alt="">
+    <h3 class="skill-set__title">Current Skills </h3>
+    <div class="skill-list" *ngFor="let skill of skills">
+        <p class="skill-list__name">{{skill.name}}</p>
+        <star-rating class="skill-list__star-rate"
+        staticColor="ok" [starType]="'svg'" [rating]="skill.score" size="large" [readOnly]="true"></star-rating>
+    </div>
+</aside>
