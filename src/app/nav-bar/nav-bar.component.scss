@@ -1,13 +1,13 @@
 @import"../../styles.scss";
 
 .navbar {
-    position: relative;
-    padding-top: 2rem;
+    display: block;
+    padding: 2rem;
     font-family: $principal-font;
 }
 
 .navbar-list {
-    @include flex(center, center);
+    @include flex(flex-end);
     list-style: none;
     gap: 2rem;
     

@@ -12,7 +12,7 @@ export class BarChartComponent implements OnInit{
   private skills: Skills[] = [];
   private svg: any;
   private margin = 50;
-  private width = 800 - (this.margin * 2);
+  private width = 600 - (this.margin * 2);
   private height = 600 - (this.margin * 2);
   private x: any;
   private y: any;
