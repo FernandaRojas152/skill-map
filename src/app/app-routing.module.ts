@@ -3,10 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
+import { ChartSectionComponent } from './chart-section/chart-section.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'home', component: NavBarComponent},
+  {path: '', redirectTo: '/all', pathMatch: 'full'},
+  {path: 'all', component: ChartSectionComponent},
   {path: 'bar', component: BarChartComponent},
   {path: 'pie', component: PieChartComponent},
 ];

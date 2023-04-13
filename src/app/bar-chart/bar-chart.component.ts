@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 import * as d3 from "d3";
+import { Component, OnInit } from '@angular/core';
 import { Skills } from '../skills';
 import { SkillService } from '../skill.service';
 
@@ -8,7 +8,7 @@ import { SkillService } from '../skill.service';
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.scss']
 })
-export class BarChartComponent {
+export class BarChartComponent implements OnInit{
   private skills: Skills[] = [];
   private svg: any;
   private margin = 50;
@@ -34,13 +34,13 @@ export class BarChartComponent {
     this.y = d3.scaleLinear().domain([0, 5]).range([this.height, 0]);
   }
 
-  private createSVG(): void {
+  createSVG(): void {
     this.svg = d3.select("figure#bar").append("svg")
       .attr("width", this.width + (this.margin * 2)).attr("height", this.height + (this.margin * 2))
       .append("g").attr("transform", "translate(" + this.margin + "," + this.margin + ")");
   }
 
-  private drawBars(data: Skills[]): void {
+  drawBars(data: Skills[]): void {
     this.xAxis();
     this.yAxis();
 
@@ -54,12 +54,12 @@ export class BarChartComponent {
       .attr("fill", (d: any)=> this.color(d.name));
   }
 
-  private xAxis(): void {
+  xAxis(): void {
     this.svg.append("g").attr('transform', "translate(0," + this.height + ")").call(d3.axisBottom(this.x))
       .selectAll("text").attr('font-size', '20px').attr('fill', 'black');
   }
 
-  private yAxis(): void {
+  yAxis(): void {
     this.svg.append("g").call(d3.axisLeft(this.y)).attr('font-size', '16px');
   }
 

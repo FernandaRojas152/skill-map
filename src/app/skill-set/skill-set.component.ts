@@ -10,8 +10,8 @@ import { SkillService } from '../skill.service';
 export class SkillSetComponent implements OnInit {
   skills: Skills[] = [];
 
-  constructor(private skillsService: SkillService) {
 
+  constructor(private skillsService: SkillService) {
   }
 
   ngOnInit(): void {
