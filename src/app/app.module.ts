@@ -8,6 +8,7 @@ import { StarRatingModule } from 'angular-star-rating';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { ChartSectionComponent } from './chart-section/chart-section.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ChartSectionComponent } from './chart-section/chart-section.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StarRatingModule.forRoot()
+    StarRatingModule.forRoot(),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

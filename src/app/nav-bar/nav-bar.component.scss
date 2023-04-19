@@ -4,6 +4,7 @@
     display: block;
     padding: 2rem;
     font-family: $principal-font;
+    font-size: 18px;
 }
 
 .navbar-list {
@@ -12,6 +13,7 @@
     gap: 2rem;
     
     &__link{
+        text-transform: uppercase;
         color: $font-color;
         text-decoration: none;
         position: relative;

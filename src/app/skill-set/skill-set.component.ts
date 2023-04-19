@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Skills } from '../skills';
 import { SkillService } from '../skill.service';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-skill-set',
@@ -9,18 +10,26 @@ import { SkillService } from '../skill.service';
 })
 export class SkillSetComponent implements OnInit {
   skills: Skills[] = [];
+  form: FormGroup;
 
-
-  constructor(private skillsService: SkillService) {
+  constructor(private skillsService: SkillService, private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
     this.getSkills();
 
+    this.form = this.fb.group({});
+    this.skills.forEach(skill => {
+      this.form.addControl(skill.name, this.fb.control(skill.score));
+    });
   }
 
-  getSkills(){
-    this.skills= this.skillsService.getSkills()
+  getSkills() {
+    this.skills = this.skillsService.getSkills()
   }
 
+  editScore(name: string){
+    const rating = this.form.get(name).value;
+    this.skillsService.updateSkillRating(name, rating);
+  }
 }

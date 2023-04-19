@@ -11,7 +11,7 @@ import { Skills } from "../skills";
 export class PieChartComponent implements OnInit {
   private skills: Skills[] = [];
   private margin = 50;
-  private width = 750;
+  private width = 700;
   private height = 600;
   private x: any;
   private y: any;
@@ -27,6 +27,9 @@ export class PieChartComponent implements OnInit {
     this.createSVG();
     this.createColors();
     this.drawPie();
+    this.skillsService.skillUpdated$.subscribe((skills: Skills[]) => {
+      this.updateChart(skills);
+    });
   }
 
   getSkills() {
@@ -41,7 +44,7 @@ export class PieChartComponent implements OnInit {
 
   drawPie(): void {
     const pie = d3.pie<any>().value((d: any) => Number(d.score));
-    // Build the pie chart
+
     this.svg.selectAll('pieces').data(pie(this.skills)).enter()
       .append('path')
       .attr('d', d3.arc()
@@ -51,8 +54,7 @@ export class PieChartComponent implements OnInit {
       .attr('fill', (d: any, i: any) => (this.colors(i)))
       .attr("stroke", "#121926")
       .style("stroke-width", "1px");
-      
-    // Add labels
+
     const labelLocation = d3.arc()
       .innerRadius(100)
       .outerRadius(this.radius);
@@ -65,6 +67,7 @@ export class PieChartComponent implements OnInit {
       .text((d: any) => d.data.name)
       .attr("transform", (d: any) => "translate(" + labelLocation.centroid(d) + ")")
       .style("text-anchor", "middle")
+      .attr('font-family', 'Poppins, sans-serif')
       .style("font-size", 15);
   }
 
@@ -73,4 +76,47 @@ export class PieChartComponent implements OnInit {
       .domain(this.skills.map(d => d.score.toString()))
       .range(["#c7d3ec", "#a5b8db", "#879cc4", "#677795", "#5a6782"]);
   }
+
+  updateChart(skills: Skills[]): void {
+    const pie = d3.pie<any>().value((d: any) => Number(d.score)); 
+    const pieData = pie(skills);
+    const paths = this.svg.selectAll('path').data(pieData);
+  
+    paths.exit().remove();
+  
+    paths.attr('d', d3.arc()
+      .innerRadius(0)
+      .outerRadius(this.radius)
+    );
+  
+    paths.enter().append('path')
+      .attr('d', d3.arc()
+        .innerRadius(0)
+        .outerRadius(this.radius)
+      )
+      .attr('fill', (d: any, i: any) => (this.colors(i)))
+      .attr("stroke", "#121926")
+      .style("stroke-width", "1px");
+  
+    // Update labels
+    const labelLocation = d3.arc()
+      .innerRadius(100)
+      .outerRadius(this.radius);
+    
+    const labels = this.svg.selectAll('text').data(pieData);
+  
+    // Remove exiting labels
+    labels.exit().remove();
+  
+    // Update existing labels
+    labels.attr("transform", (d: any) => "translate(" + labelLocation.centroid(d) + ")");
+  
+    // Add new labels
+    labels.enter().append('text')
+      .text((d: any) => d.data.name)
+      .attr("transform", (d: any) => "translate(" + labelLocation.centroid(d) + ")")
+      .style("text-anchor", "middle")
+      .style("font-size", 15);
+  }
+  
 }

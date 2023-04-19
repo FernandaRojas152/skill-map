@@ -2,10 +2,7 @@
 
 .container{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr) minmax(2rem, 3fr));
+    /* grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr) minmax(20rem, 3fr)); */
     /* grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); */
-    /* grid-template-columns: repeat(1, 1fr) 1fr; */
-    grid-gap: 2rem;
-    &__sidebar{
-    }
+    grid-template-columns: 1fr 1fr;
 }

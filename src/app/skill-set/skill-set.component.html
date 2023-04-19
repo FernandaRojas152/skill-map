@@ -1,9 +1,12 @@
 <aside class="skill-set">
     <img class="skill-set__image" src="../../assets/images/logo.png" alt="">
     <h3 class="skill-set__title">Current Skills </h3>
-    <div class="skill-list" *ngFor="let skill of skills">
+    <div class="skill-list" *ngFor="let skill of skills" [formGroup]="form">
+        <button class="skill-list__btn" (click)="editScore(skill.name)"><i class="fas fa-edit fa-lg"></i></button>
         <p class="skill-list__name">{{skill.name}}</p>
-        <star-rating class="skill-list__star-rate"
-        staticColor="ok" [starType]="'svg'" [rating]="skill.score" size="large" speed="noticeable"></star-rating>
+        <star-rating-control class="skill-list__star-rate" staticColor="ok" size="large"
+        speed="noticeable" [formControlName]="skill.name"></star-rating-control>
+<!--         <star-rating class="skill-list__star-rate"
+        staticColor="ok" [starType]="'svg'" [rating]="skill.score" size="large" speed="noticeable"></star-rating> -->
     </div>
 </aside>
