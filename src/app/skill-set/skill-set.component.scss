@@ -2,27 +2,44 @@
 
 .skill-set {
     display: flex;
-    align-items: flex-start;
-    gap: 1rem;
     flex-direction: column;
+    gap: 1.5rem;
     background-color: $sidebar;
-    width: 500px;
     height: 100vh;
-    padding: 1rem;
+    padding: 2rem;
     color: white;
-    &__image{
-        align-self: center;
-    }
+}
 
-    &__title {
-        align-self: center;
+.skill-information{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    flex-direction: column;
+    &__add-skill{
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        width: 140px;
+        height: 32px;
+        background-color: $color2;
+        font-family: $principal-font;
+        font-weight: 500;
+    }
+}
+
+.skill-form{
+    display: flex;
+    &__input-name{
+        border-radius: 50px;
+        font-family: $principal-font;
+        text-align: center;
+        border: none;
     }
 }
 
 .skill-list {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 0 1rem;
     gap: .5rem;
     position: relative;
@@ -31,7 +48,6 @@
         padding: .5rem;
         border: none;
         cursor: pointer;
-        margin-right: 8px;
         border-radius: 5px;
         background-color: $color2;
 

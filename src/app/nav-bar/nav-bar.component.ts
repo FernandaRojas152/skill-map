@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent {
+  chartOption= "all";
 
+  switchChart(option: string) {
+    this.chartOption = option;
+  }
 }

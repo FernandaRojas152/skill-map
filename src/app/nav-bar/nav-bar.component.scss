@@ -1,8 +1,7 @@
 @import"../../styles.scss";
 
 .navbar {
-    display: block;
-    padding: 2rem;
+    padding: 1.5rem;
     font-family: $principal-font;
     font-size: 18px;
 }
@@ -10,13 +9,14 @@
 .navbar-list {
     @include flex(flex-end);
     list-style: none;
-    gap: 2rem;
+    gap: 2.5rem;
     
     &__link{
         text-transform: uppercase;
         color: $font-color;
         text-decoration: none;
         position: relative;
+        cursor: pointer;
 
         &::after {
             content: '';

@@ -2,6 +2,7 @@ import * as d3 from "d3";
 import { Component, OnInit } from '@angular/core';
 import { Skills } from '../skills';
 import { SkillService } from '../skill.service';
+import { ChartsConfigurationService } from "../charts-configuration.service";
 
 @Component({
   selector: 'app-bar-chart',
@@ -9,21 +10,22 @@ import { SkillService } from '../skill.service';
   styleUrls: ['./bar-chart.component.scss']
 })
 export class BarChartComponent implements OnInit {
-  private skills: Skills[] = [];
-  private svg: any;
-  private margin = 50;
-  private width: number;
-  private height: number;
-  private x: any;
-  private y: any;
-  private color = d3.scaleOrdinal().domain(this.skills.map(d => d.name)).range(['pink', 'purple', 'blue', 'green', 'lightsalmon']);
+  skills: Skills[] = [];
+  svg: any;
+  margin= 50;
+  width: number;
+  height: number;
+  x: any;
+  y: any;
+  color = d3.scaleOrdinal().domain(this.skills.map(d => d.name)).range(['pink', 'purple', 'blue', 'green', 'lightsalmon']);
 
-  constructor(private skillsService: SkillService) {
+  constructor(private skillsService: SkillService, private chartsConfiguration: ChartsConfigurationService) {
   }
 
   ngOnInit() {
     this.calculateDimensions();
     this.getSkills();
+    this.createScales();
     this.createSVG();
     this.drawBars(this.skillsService.getSkills());
     this.skillsService.skillUpdated$.subscribe((data: Skills[]) => {
@@ -32,28 +34,42 @@ export class BarChartComponent implements OnInit {
   }
 
   calculateDimensions(){
-    this.width= this.calculateSize(600, this.margin, 2);
-    this.height= this.calculateSize(600, this.margin, 2);
-  }
-
-  calculateSize(size: number, margin: number, labels: number){
-    return size - (margin * labels);
+    this.width= this.chartsConfiguration.calculateDimensions(600,50,2);
+    this.height= this.chartsConfiguration.calculateDimensions(600,50,2);
   }
 
   getSkills() {
     this.skills = this.skillsService.getSkills();
+  }
+
+  createScales(){
     this.x = d3.scaleBand().domain(this.skills.map(data => data.name)).range([0, this.width]).padding(0.2);
     this.y = d3.scaleLinear().domain([0, 5]).range([this.height, 0]);
   }
 
+  createSVGSizes(size: number, margin: number, labels:number){
+    return size + (margin*labels);
+  }
+
+  translation(){
+    return `(${this.margin}, ${this.margin})`;
+  }
+
   createSVG(): void {
-    const width= this.width + (this.margin * 2);
+    const width= this.createSVGSizes(this.width, this.margin, 2);
+    const height= this.createSVGSizes(this.height, this.margin, 2);
     this.svg = d3.select("figure#bar")
       .append("svg")
-      .attr("width", width)
-      .attr("height", this.height + (this.margin * 2))
+      .attr(
+        'viewBox', //// viewbox is for responsive width height
+        `0 0 ${width + this.margin + this.margin} ${
+          height + this.margin + this.margin
+        }`
+      )
+/*       .attr("width", width)
+      .attr("height", height) */
       .append("g")
-      .attr("transform", "translate(" + this.margin + "," + this.margin + ")");
+      .attr("transform", "translate" + this.translation());
   }
 
   drawBars(data: Skills[]): void {
@@ -74,7 +90,7 @@ export class BarChartComponent implements OnInit {
   }
 
   yAxis(): void {
-    this.svg.append("g").call(d3.axisLeft(this.y)).attr('font-size', '16px');
+    this.svg.append("g").call(d3.axisLeft(this.y)).attr('font-family', 'Poppins, sans-serif').attr('font-size', '16px');
   }
 
   private getColor(): void {

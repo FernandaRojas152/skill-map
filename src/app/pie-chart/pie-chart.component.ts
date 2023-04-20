@@ -38,7 +38,13 @@ export class PieChartComponent implements OnInit {
 
   createSVG(): void {
     this.svg = d3.select("figure#pie").append("svg")
-      .attr("width", this.width).attr("height", this.height)
+    .attr(
+      'viewBox', //// viewbox is for responsive width height
+      `0 0 ${this.width + this.margin + this.margin} ${
+        this.height + this.margin + this.margin
+      }`
+    )
+      /* .attr("width", this.width).attr("height", this.height) */
       .append("g").attr("transform", "translate(" + this.width / 2 + "," + this.height / 2 + ")");
   }
 
@@ -118,5 +124,4 @@ export class PieChartComponent implements OnInit {
       .style("text-anchor", "middle")
       .style("font-size", 15);
   }
-  
 }

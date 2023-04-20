@@ -6,10 +6,10 @@ import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { ChartSectionComponent } from './chart-section/chart-section.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/all', pathMatch: 'full'},
+/*   {path: '', redirectTo: '/all', pathMatch: 'full'},
   {path: 'all', component: ChartSectionComponent},
   {path: 'bar', component: BarChartComponent},
-  {path: 'pie', component: PieChartComponent},
+  {path: 'pie', component: PieChartComponent}, */
 ];
 
 @NgModule({
