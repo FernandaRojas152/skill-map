@@ -5,7 +5,7 @@
     flex-direction: column;
     gap: 1.5rem;
     background-color: $sidebar;
-    height: 100vh;
+    height: 100%;
     padding: 2rem;
     color: white;
 }
@@ -16,6 +16,10 @@
     align-items: center;
     gap: .5rem;
     flex-direction: column;
+    &__image{
+        width: 340px;
+        object-fit: cover;
+    }
     &__add-skill{
         border: none;
         border-radius: 50px;

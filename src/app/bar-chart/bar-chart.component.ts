@@ -27,6 +27,7 @@ export class BarChartComponent implements OnInit {
     this.getSkills();
     this.createScales();
     this.createSVG();
+    //this.chartsConfiguration.generateColors();
     this.drawBars(this.skillsService.getSkills());
     this.skillsService.skillUpdated$.subscribe((data: Skills[]) => {
       this.updateBars(data);

@@ -16,6 +16,14 @@ export class SkillService {
     return this.skills;
   }
 
+  addSkill(skill: Skills){
+    this.skills.push(skill);
+    this.skillUpdated$.next(this.skills);
+  }
+
+  deleteSkill(skill: Skills){
+  }
+
   updateSkillRating(skillName: string, rating: number) {
     const skill = this.skills.find(skill => skill.name === skillName);
     if (skill) {

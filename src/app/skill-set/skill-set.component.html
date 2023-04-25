@@ -1,10 +1,11 @@
 <aside class="skill-set">
     <div class="skill-information">
         <img class="skill-information__image" src="../../assets/images/logo.png" alt="">
+        
         <h3 class="skill-information__title">Current Skills </h3>
-        <button class="skill-information__add-skill">Add Skill</button>
+        <button class="skill-information__add-skill" (click)="addSkill()">Add Skill</button>
         <form class="skill-form" [formGroup]="addSkillForm">
-            <input class="skill-form__input-name" type="text" placeholder="Skill name">
+            <input class="skill-form__input-name" type="text" placeholder="Skill name" formControlName="name">
             <star-rating-control class="skill-form__score" formControlName="myRatingControl"
             staticColor="ok" size="large" speed="noticeable"></star-rating-control>
         </form>
