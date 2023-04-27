@@ -7,28 +7,30 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class SkillService {
-  private skills: Skills[] = SKILLS;
-  public skillUpdated$ = new BehaviorSubject<Skills[]>(this.skills);
+  private skillUpdated$ = new BehaviorSubject<Skills[]>(SKILLS);
+  public skills$ = this.skillUpdated$.asObservable();
 
   constructor() { }
 
-  getSkills(): Skills[] {
-    return this.skills;
+  get skills(){
+    return this.skillUpdated$.value;
   }
 
   addSkill(skill: Skills){
-    this.skills.push(skill);
-    this.skillUpdated$.next(this.skills);
+    const skills= this.skills;
+    skills.push(skill);
+    this.skillUpdated$.next(skills);
   }
 
   deleteSkill(skill: Skills){
   }
 
   updateSkillRating(skillName: string, rating: number) {
-    const skill = this.skills.find(skill => skill.name === skillName);
+    const skills= this.skills;
+    const skill = skills.find(skill => skill.name === skillName);
     if (skill) {
       skill.score = rating;
-      this.skillUpdated$.next(this.skills);
+      this.skillUpdated$.next(skills);
     }
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Skills } from '../skills';
 import { SkillService } from '../skill.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-skill-set',
@@ -9,7 +9,6 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./skill-set.component.scss']
 })
 export class SkillSetComponent implements OnInit {
-  skills: Skills[];
   form: FormGroup;
   addSkillForm: FormGroup;
 
@@ -17,25 +16,22 @@ export class SkillSetComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getSkills();
-
     this.form = this.fb.group({});
     this.skills.forEach(skill => {
       this.form.addControl(skill.name, this.fb.control(skill.score));
     });
 
     this.addSkillForm = this.fb.group({
-      name: [''],
+      name: ['', [Validators.required]],
       myRatingControl: [''],
     });
   }
 
-  getSkills() {
-    this.skills = this.skillsService.getSkills();
+  get skills() {
+    return this.skillsService.skills
   }
 
-  editScore(name: string) {
-    const rating = this.form.get(name).value;
+  editScore(name: string, rating: number) {
     this.skillsService.updateSkillRating(name, rating);
   }
 
@@ -46,8 +42,6 @@ export class SkillSetComponent implements OnInit {
     };
 
     this.skillsService.addSkill(newSkill);
-
-    console.log(this.skills);
     this.form.addControl(newSkill.name, this.fb.control(newSkill.score));
     this.addSkillForm.reset();
   }

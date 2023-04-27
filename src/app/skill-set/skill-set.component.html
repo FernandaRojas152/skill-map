@@ -1,20 +1,19 @@
 <aside class="skill-set">
     <div class="skill-information">
         <img class="skill-information__image" src="../../assets/images/logo.png" alt="">
-        
         <h3 class="skill-information__title">Current Skills </h3>
         <button class="skill-information__add-skill" (click)="addSkill()">Add Skill</button>
         <form class="skill-form" [formGroup]="addSkillForm">
             <input class="skill-form__input-name" type="text" placeholder="Skill name" formControlName="name">
-            <star-rating-control class="skill-form__score" formControlName="myRatingControl"
-            staticColor="ok" size="large" speed="noticeable"></star-rating-control>
+            <star-rating-control class="skill-form__score" formControlName="myRatingControl" staticColor="ok"
+                size="large" speed="noticeable"></star-rating-control>
         </form>
     </div>
 
     <div class="skill-list" *ngFor="let skill of skills" [formGroup]="form">
-        <button class="skill-list__btn" (click)="editScore(skill.name)"><i class="fas fa-edit fa-lg"></i></button>
+        <!-- <button class="skill-list__btn"><i class="fas fa-edit fa-lg"></i></button> -->
         <p class="skill-list__name">{{skill.name}}</p>
-        <star-rating-control class="skill-list__star-rate" staticColor="ok" size="large" speed="noticeable"
-            [formControlName]="skill.name"></star-rating-control>
+        <star-rating-control (ratingChange)="editScore(skill.name,$event.rating)" class="skill-list__star-rate"
+            staticColor="ok" size="large" speed="noticeable" [formControlName]="skill.name"></star-rating-control>
     </div>
 </aside>

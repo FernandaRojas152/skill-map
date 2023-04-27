@@ -9,7 +9,6 @@ import { Skills } from "../skills";
   styleUrls: ['./pie-chart.component.scss']
 })
 export class PieChartComponent implements OnInit {
-  private skills: Skills[] = [];
   private margin = 50;
   private width = 700;
   private height = 600;
@@ -23,27 +22,25 @@ export class PieChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getSkills();
     this.createSVG();
     this.createColors();
     this.drawPie();
-    this.skillsService.skillUpdated$.subscribe((skills: Skills[]) => {
+    this.skillsService.skills$.subscribe((skills: Skills[]) => {
       this.updateChart(skills);
     });
   }
 
-  getSkills() {
-    this.skills = this.skillsService.getSkills();
+  get skills() {
+    return this.skillsService.skills;
   }
 
   createSVG(): void {
     this.svg = d3.select("figure#pie").append("svg")
-    .attr(
-      'viewBox', //// viewbox is for responsive width height
-      `0 0 ${this.width + this.margin + this.margin} ${
-        this.height + this.margin + this.margin
-      }`
-    )
+      .attr(
+        'viewBox', //// viewbox is for responsive width height
+        `0 0 ${this.width + this.margin + this.margin} ${this.height + this.margin + this.margin
+        }`
+      )
       /* .attr("width", this.width).attr("height", this.height) */
       .append("g").attr("transform", "translate(" + this.width / 2 + "," + this.height / 2 + ")");
   }
@@ -84,17 +81,17 @@ export class PieChartComponent implements OnInit {
   }
 
   updateChart(skills: Skills[]): void {
-    const pie = d3.pie<any>().value((d: any) => Number(d.score)); 
+    const pie = d3.pie<any>().value((d: any) => Number(d.score));
     const pieData = pie(skills);
     const paths = this.svg.selectAll('path').data(pieData);
-  
+
     paths.exit().remove();
-  
+
     paths.attr('d', d3.arc()
       .innerRadius(0)
       .outerRadius(this.radius)
     );
-  
+
     paths.enter().append('path')
       .attr('d', d3.arc()
         .innerRadius(0)
@@ -103,20 +100,20 @@ export class PieChartComponent implements OnInit {
       .attr('fill', (d: any, i: any) => (this.colors(i)))
       .attr("stroke", "#121926")
       .style("stroke-width", "1px");
-  
+
     // Update labels
     const labelLocation = d3.arc()
       .innerRadius(100)
       .outerRadius(this.radius);
-    
+
     const labels = this.svg.selectAll('text').data(pieData);
-  
+
     // Remove exiting labels
     labels.exit().remove();
-  
+
     // Update existing labels
     labels.attr("transform", (d: any) => "translate(" + labelLocation.centroid(d) + ")");
-  
+
     // Add new labels
     labels.enter().append('text')
       .text((d: any) => d.data.name)

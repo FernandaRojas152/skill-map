@@ -10,7 +10,6 @@ import { ChartsConfigurationService } from "../charts-configuration.service";
   styleUrls: ['./bar-chart.component.scss']
 })
 export class BarChartComponent implements OnInit {
-  skills: Skills[] = [];
   svg: any;
   margin= 50;
   width: number;
@@ -22,25 +21,28 @@ export class BarChartComponent implements OnInit {
   constructor(private skillsService: SkillService, private chartsConfiguration: ChartsConfigurationService) {
   }
 
+  get skills(){
+    return this.skillsService.skills;
+  }
+
   ngOnInit() {
     this.calculateDimensions();
-    this.getSkills();
     this.createScales();
     this.createSVG();
+    const coloredSkills = this.chartsConfiguration.generateColors(this.skillsService.skills);
+    this.drawBars(coloredSkills);
     //this.chartsConfiguration.generateColors();
-    this.drawBars(this.skillsService.getSkills());
-    this.skillsService.skillUpdated$.subscribe((data: Skills[]) => {
-      this.updateBars(data);
-    });
+    /* this.drawBars(this.skillsService.skills); */
+    this.skillsService.skills$.subscribe(this.updateBars);
+  }
+
+  ngOnDestroy(): void {
+
   }
 
   calculateDimensions(){
     this.width= this.chartsConfiguration.calculateDimensions(600,50,2);
     this.height= this.chartsConfiguration.calculateDimensions(600,50,2);
-  }
-
-  getSkills() {
-    this.skills = this.skillsService.getSkills();
   }
 
   createScales(){
@@ -97,7 +99,7 @@ export class BarChartComponent implements OnInit {
   private getColor(): void {
   }
 
-  updateBars(newData: Skills[]): void {
+  updateBars=(newData: Skills[])=>{
     this.x.domain(newData.map(data => data.name));
     this.y.domain([0, 5]);
 
@@ -114,7 +116,7 @@ export class BarChartComponent implements OnInit {
       .attr("y", (d: any) => this.y(d.score))
       .attr("width", this.x.bandwidth())
       .attr("height", (d: any) => this.height - this.y(d.score))
-      .attr("fill", (d: any) => this.color(d.name));
+      //.attr("fill", (d: any) => this.color(d.name));
 
     bars.exit().remove();
   }

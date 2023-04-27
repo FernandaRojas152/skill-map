@@ -7,7 +7,7 @@ import { Skills } from './skills';
 })
 export class ChartsConfigurationService {
   skills: Skills[];
-  
+
   constructor() { }
 
   calculateDimensions(size: number, margin: number, label: number) {
@@ -23,13 +23,13 @@ export class ChartsConfigurationService {
     const y = d3.scaleLinear().domain([0, 5]).range([height, 0]);
   }
 
-  generateColors() {
-    this.skills.forEach((skill) => {
+  generateColors(skills: Skills[]) {
+    return skills.map((skill) => {
       const r = Math.floor(Math.random() * 256);
       const g = Math.floor(Math.random() * 256);
       const b = Math.floor(Math.random() * 256);
       const a = Math.random().toFixed(2);
-      skill.color = `rgba(${r}, ${g}, ${b}, ${a})`;
+      return { ...skill, color: `rgba(${r}, ${g}, ${b}, ${a})` };
     });
   }
 }
