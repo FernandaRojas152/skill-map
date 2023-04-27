@@ -30,10 +30,10 @@ export class BarChartComponent implements OnInit {
     this.createScales();
     this.createSVG();
     const coloredSkills = this.chartsConfiguration.generateColors(this.skillsService.skills);
-    this.drawBars(coloredSkills);
+    // this.drawBars(coloredSkills);
     //this.chartsConfiguration.generateColors();
     /* this.drawBars(this.skillsService.skills); */
-    this.skillsService.skills$.subscribe(this.updateBars);
+    this.skillsService.skillsForm.valueChanges.subscribe(this.updateTechSkills);
   }
 
   ngOnDestroy(): void {
@@ -99,24 +99,32 @@ export class BarChartComponent implements OnInit {
   private getColor(): void {
   }
 
+  updateTechSkills = (skills: {[key: string]: number}) => {
+    const newData: Skills[] = Object.keys(skills).map(
+      name => ({name, score: skills[name]})
+    );
+
+    this.drawBars(newData);
+  }
+
   updateBars=(newData: Skills[])=>{
-    this.x.domain(newData.map(data => data.name));
+    this.x.domain(newData.map(({name}) => name));
     this.y.domain([0, 5]);
 
     const bars = this.svg.selectAll("rect").data(newData);
 
-    bars.transition().duration(1000)
+    bars.transition().duration(300)
       .attr("x", (d: any) => this.x(d.name))
       .attr("y", (d: any) => this.y(d.score))
       .attr("width", this.x.bandwidth())
       .attr("height", (d: any) => this.height - this.y(d.score));
 
     bars.enter().append("rect")
-      .attr("x", (d: any) => this.x(d.name))
-      .attr("y", (d: any) => this.y(d.score))
+      .attr("x", ({name}) => this.x(name))
+      .attr("y", ({score}) => this.y(score))
       .attr("width", this.x.bandwidth())
-      .attr("height", (d: any) => this.height - this.y(d.score))
-      //.attr("fill", (d: any) => this.color(d.name));
+      .attr("height", ({score}) => this.height - this.y(score))
+      //.attr("fill", (d: any) => this.color(d.name)); :)
 
     bars.exit().remove();
   }

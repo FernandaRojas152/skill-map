@@ -61,3 +61,24 @@
     }
 }
 
+.tech-skills-form {
+  width: 100%;
+  gap: 10px;
+
+  @include flex(flex-start, flex-start, column);
+
+ &__controls {
+  gap: 15px;
+
+  @include flex(flex-start, center, row);
+
+  .skill-label {
+    font-size: 16px;
+  }
+
+  .delete-skill {
+    font-size: 10px;
+    cursor: pointer;
+  }
+ }
+}

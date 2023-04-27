@@ -1,19 +1,61 @@
 <aside class="skill-set">
-    <div class="skill-information">
-        <img class="skill-information__image" src="../../assets/images/logo.png" alt="">
-        <h3 class="skill-information__title">Current Skills </h3>
-        <button class="skill-information__add-skill" (click)="addSkill()">Add Skill</button>
-        <form class="skill-form" [formGroup]="addSkillForm">
-            <input class="skill-form__input-name" type="text" placeholder="Skill name" formControlName="name">
-            <star-rating-control class="skill-form__score" formControlName="myRatingControl" staticColor="ok"
-                size="large" speed="noticeable"></star-rating-control>
-        </form>
+  <div class="skill-information">
+    <img class="skill-information__image"
+         src="../../assets/images/logo.png"
+         alt="Logo">
+    <h3 class="skill-information__title">
+      Current Skills
+    </h3>
+    <fer-add-tech-skill (addSkill)="onAddTechSkill($event)"></fer-add-tech-skill>
+    <!-- <button class="skill-information__add-skill"
+            (click)="addSkill()">
+      Add Skill
+    </button> -->
+    <!-- <form class="skill-form"
+          [formGroup]="addSkillForm">
+      <input class="skill-form__input-name"
+             type="text"
+             placeholder="Skill name"
+             formControlName="name">
+      <star-rating-control class="skill-form__score"
+                           formControlName="myRatingControl"
+                           staticColor="ok"
+                           size="large"
+                           speed="noticeable">
+      </star-rating-control>
+    </form> -->
+  </div>
+  <form [formGroup]="skillsForm"
+        class="tech-skills-form">
+    <div *ngFor="let skillName of techSkills"
+        class="tech-skills-form__controls">
+      <span class="skill-label">
+        {{skillName}}
+      </span>
+      <star-rating-control class="skill-list__star-rate"
+                          staticColor="ok"
+                          size="large"
+                          speed="noticeable"
+                          [formControlName]="skillName">
+      </star-rating-control>
+      <span class="delete-skill"
+            (click)="removeTechSkill(skillName)">
+            ❌
+          </span>
     </div>
-
-    <div class="skill-list" *ngFor="let skill of skills" [formGroup]="form">
-        <!-- <button class="skill-list__btn"><i class="fas fa-edit fa-lg"></i></button> -->
-        <p class="skill-list__name">{{skill.name}}</p>
-        <star-rating-control (ratingChange)="editScore(skill.name,$event.rating)" class="skill-list__star-rate"
-            staticColor="ok" size="large" speed="noticeable" [formControlName]="skill.name"></star-rating-control>
-    </div>
+  </form>
+<!--
+  <div class="skill-list"
+       *ngFor="let skill of skills"
+       [formGroup]="form">
+    <button class="skill-list__btn"><i class="fas fa-edit fa-lg"></i></button>
+    <p class="skill-list__name">{{skill.name}}</p>
+    <star-rating-control (ratingChange)="editScore(skill.name,$event.rating)"
+                         class="skill-list__star-rate"
+                         staticColor="ok"
+                         size="large"
+                         speed="noticeable"
+                         [formControlName]="skill.name">
+    </star-rating-control>
+  </div> -->
 </aside>
