@@ -1,4 +1,5 @@
 <form class="add-tech-skill" [formGroup]="newSkillForm">
-  <input type="text" formControlName="name" placeholder="New Skill" (keyup.enter)="addNewSkill()" >
-  <span (click)="addNewSkill()">➕</span>
+  <input class="add-tech-skill__input-name" type="text" formControlName="name"
+    placeholder="New Skill" (keyup.enter)="addNewSkill()" >
+  <span (click)="addNewSkill()"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #c6bbe0;"></i></span>
 </form>

@@ -1,8 +1,6 @@
 <aside class="skill-set">
   <div class="skill-information">
-    <img class="skill-information__image"
-         src="../../assets/images/logo.png"
-         alt="Logo">
+    <img class="skill-information__image" src="../../assets/images/logo.png" alt="Logo">
     <h3 class="skill-information__title">
       Current Skills
     </h3>
@@ -25,26 +23,16 @@
       </star-rating-control>
     </form> -->
   </div>
-  <form [formGroup]="skillsForm"
-        class="tech-skills-form">
-    <div *ngFor="let skillName of techSkills"
-        class="tech-skills-form__controls">
-      <span class="skill-label">
-        {{skillName}}
-      </span>
-      <star-rating-control class="skill-list__star-rate"
-                          staticColor="ok"
-                          size="large"
-                          speed="noticeable"
-                          [formControlName]="skillName">
+  <form [formGroup]="skillsForm" class="tech-skills-form">
+    <div *ngFor="let skillName of techSkills" class="tech-skills-form__controls">
+      <span class="skill-label">{{skillName}}</span>
+      <star-rating-control class="skill-list__star-rate" staticColor="ok" size="large" speed="noticeable"
+        [formControlName]="skillName">
       </star-rating-control>
-      <span class="delete-skill"
-            (click)="removeTechSkill(skillName)">
-            ❌
-          </span>
+      <span class="delete-skill" (click)="removeTechSkill(skillName)">❌</span>
     </div>
   </form>
-<!--
+  <!--
   <div class="skill-list"
        *ngFor="let skill of skills"
        [formGroup]="form">

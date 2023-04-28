@@ -32,16 +32,6 @@
     }
 }
 
-.skill-form{
-    display: flex;
-    &__input-name{
-        border-radius: 50px;
-        font-family: $principal-font;
-        text-align: center;
-        border: none;
-    }
-}
-
 .skill-list {
     display: flex;
     padding: 0 1rem;

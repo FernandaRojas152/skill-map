@@ -1,0 +1,13 @@
+@import"../../../../styles.scss";
+
+.add-tech-skill{
+    @include flex();
+    gap: .5rem;
+    &__input-name{
+        border-radius: 50px;
+        font-family: $principal-font;
+        font-size: 16px;
+        text-align: center;
+        border: none;
+    }
+}
