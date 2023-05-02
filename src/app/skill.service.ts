@@ -41,9 +41,6 @@ export class SkillService {
     this.skillUpdated$.next(skills);
   }
 
-  deleteSkill(skill: Skills){
-  }
-
   updateSkillRating(skillName: string, rating: number) {
     const skills= this.skills;
     const skill = skills.find(skill => skill.name === skillName);
