@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import * as Highcharts from 'highcharts';
 import { Component, OnInit } from '@angular/core';
 import { Skills } from '../skills';
 import { SkillService } from '../skill.service';
