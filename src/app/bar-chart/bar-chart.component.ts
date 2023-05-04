@@ -1,4 +1,3 @@
-import * as d3 from "d3";
 import * as Highcharts from 'highcharts';
 import { Component, OnInit } from '@angular/core';
 import { Skills } from '../skills';
@@ -12,40 +11,81 @@ import { FormBuilder } from "@angular/forms";
   styleUrls: ['./bar-chart.component.scss']
 })
 export class BarChartComponent implements OnInit {
-  svg: any;
-  margin = 50;
-  width: number;
-  height: number;
-  x: any;
-  y: any;
-  color = d3.scaleOrdinal().domain(this.skills.map(d => d.name)).range(['pink', 'purple', 'blue', 'green', 'lightsalmon']);
+  Highcharts: typeof Highcharts = Highcharts;
+  updateFlag: boolean = false;
+  chartOptions: Highcharts.Options = {
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: ''
+    },
+    series: [{
+      data: [],
+      type: 'column'
+    }]
+  };
+  responsive: {
+    rules: [{
+      condition: {
+        maxWidth: 500
+      },
+      chartOptions: {
+        legend: {
+          align: 'center',
+          verticalAlign: 'bottom',
+          layout: 'horizontal'
+        },
+        yAxis: {
+          labels: {
+            align: 'left',
+            x: 0,
+            y: -5
+          },
+          title: {
+            text: null
+          }
+        },
+        subtitle: {
+          text: null
+        },
+        credits: {
+          enabled: false
+        }
+      }
+    }]
+  }
 
   constructor(private skillsService: SkillService, private chartsConfiguration: ChartsConfigurationService,
     private fb: FormBuilder) {
   }
 
-  /* get skills(){
-    return this.skillsService.skills;
-  } */
-
   ngOnInit() {
     this.initSkillForm();
-    this.calculateDimensions();
-    this.createScales();
-    this.createSVG();
-    /*     const coloredSkills = this.chartsConfiguration.generateColors(this.skillsService.skills);
-        // this.drawBars(coloredSkills);
-        //this.chartsConfiguration.generateColors(); */
-    this.drawBars(this.skillsService.skills);
+
     this.skillsService.skillsForm.valueChanges.subscribe((skills: { [key: string]: number }) => {
       const newData: Skills[] = Object.keys(skills).map(name => ({ name, score: skills[name] }));
-      this.updateBars(newData);
-      this.updateText(newData);
+      console.log(newData);
+      const chartData = newData.map(skill => {
+        return { name: skill.name, data: [skill.score] };
+      });
+      console.log(chartData);
+
+      this.chartOptions.series = chartData.map(data => ({
+        type: 'column',
+        name: data.name,
+        data: data.data
+      }));
+      console.log(this.chartOptions.series);
+      console.log(this.chartOptions);
+      this.chartOptions.xAxis = {
+        categories: chartData.map(data => data.name)
+      };
+
+      this.updateFlag = true;
+
     });
-  }
-
-  ngOnDestroy(): void {
-
+    console.log("Hi", this.chartOptions);
   }
 
   initSkillForm() {
@@ -59,7 +99,7 @@ export class BarChartComponent implements OnInit {
     });
   }
 
-  calculateDimensions() {
+  /* calculateDimensions() {
     this.width = this.chartsConfiguration.calculateDimensions(600, 50, 2);
     this.height = this.chartsConfiguration.calculateDimensions(600, 50, 2);
   }
@@ -88,8 +128,6 @@ export class BarChartComponent implements OnInit {
         `0 0 ${width + this.margin + this.margin} ${height + this.margin + this.margin
         }`
       )
-      /*       .attr("width", width)
-            .attr("height", height) */
       .append("g")
       .attr("transform", "translate" + this.translation());
   }
@@ -146,7 +184,7 @@ export class BarChartComponent implements OnInit {
       .attr("y", ({ score }) => this.y(score))
       .attr("width", this.x.bandwidth())
       .attr("height", ({ score }) => this.height - this.y(score))
-    //.attr("fill", (d: any) => this.color(d.name)); :)
+      .attr("fill", (d: any) => this.color(d.name));
 
     bars.exit().remove();
   }
@@ -169,5 +207,5 @@ export class BarChartComponent implements OnInit {
       .text((d: any) => d.name);
 
     texts.exit().remove();
-  }
+  } */
 }

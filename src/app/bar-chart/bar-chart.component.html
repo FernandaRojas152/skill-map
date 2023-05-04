@@ -1,3 +1,9 @@
-<section class="bar-container">
+<!-- <section class="bar-container">
     <figure class="bar-container__figure" id="bar"></figure>
-</section>
+</section> -->
+<highcharts-chart  id="chartContainer"
+  [Highcharts]="Highcharts"
+  [options]="chartOptions"
+  style="width: 100%; height: 500px; display: block;"
+  [(update)]="updateFlag"
+></highcharts-chart>

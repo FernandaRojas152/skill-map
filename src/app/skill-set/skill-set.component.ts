@@ -18,9 +18,6 @@ export class SkillSetComponent implements OnInit {
   ngOnInit(): void {
     this.initSkillForm();
     this.form = this.fb.group({});
-    this.skills.forEach(skill => {
-      this.form.addControl(skill.name, this.fb.control(skill.score));
-    });
 
     this.addSkillForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -30,7 +27,6 @@ export class SkillSetComponent implements OnInit {
 
   initSkillForm() {
     this.skillsService.initForm();
-    this.skillsService.skillsForm.valueChanges.subscribe(console.log);
   }
 
   removeTechSkill(skillName: string) {
@@ -49,22 +45,7 @@ export class SkillSetComponent implements OnInit {
     return this.skillsService.skillsForm;
   }
 
-  get skills() {
-    return this.skillsService.skills
-  }
-
   editScore(name: string, rating: number) {
     this.skillsService.updateSkillRating(name, rating);
-  }
-
-  addSkill() {
-    const newSkill: Skills = {
-      name: this.addSkillForm.value.name,
-      score: this.addSkillForm.value.myRatingControl,
-    };
-
-    this.skillsService.addSkill(newSkill);
-    this.form.addControl(newSkill.name, this.fb.control(newSkill.score));
-    this.addSkillForm.reset();
   }
 }

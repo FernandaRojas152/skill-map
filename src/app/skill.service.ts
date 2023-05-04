@@ -35,12 +35,6 @@ export class SkillService {
     this.skillsForm.removeControl(skillName);
   }
 
-  addSkill(skill: Skills){
-    const skills= this.skills;
-    skills.push(skill);
-    this.skillUpdated$.next(skills);
-  }
-
   updateSkillRating(skillName: string, rating: number) {
     const skills= this.skills;
     const skill = skills.find(skill => skill.name === skillName);
