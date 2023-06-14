@@ -1,9 +1,7 @@
 import * as Highcharts from 'highcharts';
 import { Component, OnInit } from '@angular/core';
-import HC_exporting from 'highcharts/modules/exporting';
 import { SkillService } from '../skill.service';
-import { Skills } from "../skills";
-import { Subscription, map } from 'rxjs';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-pie-chart',
@@ -18,14 +16,13 @@ export class PieChartComponent implements OnInit {
   constructor(private skillsService: SkillService) {}
 
   ngOnInit() {
-    HC_exporting(Highcharts);
 
     this.chartOptions = {
       chart: {
-        type: 'column',
+        type: 'pie',
       },
       title: {
-        text: 'Skills',
+        text: '',
       },
       xAxis: {
         categories: [],
@@ -44,17 +41,15 @@ export class PieChartComponent implements OnInit {
       },
     };
 
-    const skills = this.getSkills();
-    this.updateChart(skills);
+    this.updateChart(this.skills);
 
     this.skillsService.skillsForm.valueChanges
       .pipe(
-        map(() => this.getSkills())
-      )
-      .subscribe(skills => this.updateChart(skills));
+        map(() => this.skills)
+      ).subscribe(skills => this.updateChart(skills));
   }
 
-  getSkills() {
+  get skills() {
     return Object.keys(this.skillsService.skillsForm.controls).map(skillName => {
       const value = this.skillsService.skillsForm.get(skillName).value;
       return { name: skillName, value: value };

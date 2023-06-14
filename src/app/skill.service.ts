@@ -13,9 +13,7 @@ export class SkillService {
 
   public skillsForm: FormGroup;
 
-  constructor(
-    private fb: FormBuilder
-  ) { }
+  constructor(private fb: FormBuilder) { }
 
   get skills(){
     return this.skillUpdated$.value;
